@@ -16,6 +16,8 @@
        
           ['Zeit', 'Luftfeuchte', 'Temperatur']
           <?php
+			#create your database before
+			#sqlite3 test.db "CREATE TABLE IF NOT EXISTS data (id INTEGER PRIMARY KEY,time INT,temp REAL,hum REAL);"
 		$sqlite="/var/www/test.db";
 		$query="select time,hum,temp from data";
 		$db = new PDO('sqlite:/var/www/test.db');
