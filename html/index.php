@@ -65,21 +65,43 @@
 	</div>
 	<div>
 	<?php
-		$sqlite="/var/www/test.db";
-		$query="select time,hum,temp from data";
+	#	$sqlite="/var/www/test.db";
+	#	$query="select time,hum,temp from data";
 		$db = new PDO('sqlite:/var/www/test.db');
-		$result = $db->query("select time,temp,hum from data");
-		while($row=$result->fetch(PDO::FETCH_ASSOC)) {
-			$hum=$row['hum'];
-			$temp=$row['temp'];
-			$timestamp=$row['time'];
-			$day=date("d",$timestamp);
-			$month=date("m",$timestamp)-1;
-			$year=date("Y",$timestamp);
-			$hour=date("H",$timestamp);
-			$minute=date("i",$timestamp);
-		# echo "[new Date($year, $month, $day, $hour, $minute, 00), $hum, $temp]";
- }
+		$resultakt = $db->query("select max(time),temp,hum from data");
+		$resultmax = $db->query("select time,max(temp) from data");
+		$resultmin = $db->query("select time,min(temp) from data");
+		while($row=$resultakt->fetch(PDO::FETCH_ASSOC)) {
+			$tempakt=$row['temp'];
+			$humakt=$row['hum'];
+			$timestampakt=$row['max(time)'];
+			$dayakt=date("d",$timestampakt);
+			$monthakt=date("m",$timestampakt);
+			$yearakt=date("Y",$timestampakt);
+			$hourakt=date("H",$timestampakt);
+			$minuteakt=date("i",$timestampakt);
+}
+		while($row=$resultmax->fetch(PDO::FETCH_ASSOC)) {
+			$tempmax=$row['max(temp)'];
+			$timestampmax=$row['time'];
+			$daymax=date("d",$timestampmax);
+			$monthmax=date("m",$timestampmax);
+			$yearmax=date("Y",$timestampmax);
+			$hourmax=date("H",$timestampmax);
+			$minutemax=date("i",$timestampmax);
+}
+		while($row=$resultmin->fetch(PDO::FETCH_ASSOC)) {
+			$tempmin=$row['min(temp)'];
+			$timestampmin=$row['time'];
+			$daymin=date("d",$timestampmin);
+			$monthmin=date("m",$timestampmin);
+			$yearmin=date("Y",$timestampmin);
+			$hourmin=date("H",$timestampmin);
+			$minutemin=date("i",$timestampmin);
+}
+		 echo "<div>Aktuell: $dayakt.$monthakt.$yearakt $hourakt:$minuteakt - $tempakt °C - $humakt % Luftfeuchte</div>";
+		 echo "<div>Maximum: $daymax.$monthmax.$yearmax $hourmax:$minutemax - $tempmax °C</div>";
+		 echo "<div>Minimum: $daymin.$monthmin.$yearmin $hourmin:$minutemin - $tempmin °C</div>";
 	?>
 	</div>
     <div id="dashboard_div">
