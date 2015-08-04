@@ -9,9 +9,11 @@
     <!-- Google charts -->
       <script type="text/javascript" src="https://www.google.com/jsapi"></script>
       <script type="text/javascript">
-      google.load('visualization', '1.0', {packages:['controls']});
+      google.load('visualization', '1.0', {packages:['corechart','controls']});
       google.setOnLoadCallback(drawDashboard);
       function drawDashboard() {
+			var heute = new Date();
+			var gestern = heute - 86400000;
         var data = google.visualization.arrayToDataTable([
        
           ['Zeit', 'Luftfeuchte', 'Temperatur']
@@ -43,8 +45,20 @@
           'controlType': 'ChartRangeFilter',
           'containerId': 'filter_div',
           'options': {
+				'ui': {
+					'chartOptions': {
+					'chartArea': {'width': '50%'},
+						},
+				},
             'filterColumnLabel': 'Zeit'
-          }
+			},
+
+		'state': {
+			'range': {
+				'start': gestern , 
+				'end': heute
+				}
+			}
         });
               var lineChart = new google.visualization.ChartWrapper({
    		chartType: 'LineChart',
