@@ -12,9 +12,10 @@
       google.load('visualization', '1.0', {packages:['corechart','controls']});
       google.setOnLoadCallback(drawDashboard);
       function drawDashboard() {
-			var heute = new Date();
-			var gestern = heute - 86400000;
-        var data = google.visualization.arrayToDataTable([
+		var heute = new Date();
+		var gestern = new Date();
+		gestern.setTime(gestern.getTime() - 86400000 * 2);
+		var data = google.visualization.arrayToDataTable([
        
           ['Zeit', 'Luftfeuchte', 'Temperatur']
           <?php
@@ -52,7 +53,6 @@
 				},
             'filterColumnLabel': 'Zeit'
 			},
-
 		'state': {
 			'range': {
 				'start': gestern , 
@@ -60,7 +60,7 @@
 				}
 			}
         });
-              var lineChart = new google.visualization.ChartWrapper({
+        var lineChart = new google.visualization.ChartWrapper({
    		chartType: 'LineChart',
           containerId: 'chart_div',
           options: {'title': 'Außen'
