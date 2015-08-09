@@ -9,7 +9,7 @@
     <!-- Google charts -->
       <script type="text/javascript" src="https://www.google.com/jsapi"></script>
       <script type="text/javascript">
-      google.load('visualization', '1.0', {packages:['corechart','controls']});
+      google.load('visualization', '1.0', {packages:['corechart','controls','gauge']});
       google.setOnLoadCallback(drawDashboard);
       function drawDashboard() {
 		var heute = new Date();
@@ -66,18 +66,10 @@
           options: {'title': 'Außen'
 		}
         });
-        dashboard.bind(RangeSlider, lineChart);
-        dashboard.draw(data);
-        
-      }
-    	</script>
-  
-  </head>
-  <body>
-	<div >
-		<h1>Außentemperatur</h1>
-	</div>
-	<div>
+		
+        var gaugedata = google.visualization.arrayToDataTable([
+          ['Label', 'Value'],
+		['Aktuell',
 	<?php
 	#	$sqlite="/var/www/test.db";
 	#	$query="select time,hum,temp from data";
@@ -113,13 +105,46 @@
 			$hourmin=date("H",$timestampmin);
 			$minutemin=date("i",$timestampmin);
 }
-		 echo "<div>Aktuell: $dayakt.$monthakt.$yearakt $hourakt:$minuteakt - $tempakt °C - $humakt % Luftfeuchte</div>";
+/*		 echo "<div>Aktuell: $dayakt.$monthakt.$yearakt $hourakt:$minuteakt - $tempakt °C - $humakt % Luftfeuchte</div>";
 		 echo "<div>Maximum: $daymax.$monthmax.$yearmax $hourmax:$minutemax - $tempmax °C</div>";
 		 echo "<div>Minimum: $daymin.$monthmin.$yearmin $hourmin:$minutemin - $tempmin °C</div>";
+*/
+		echo "$tempakt],['Maximum',$tempmax],['Minimum',$tempmin]";
 	?>
+        ]);
+
+        var options = {
+          width: 400, height: 120,
+          greenFrom: 0, greenTo: 30,
+          redFrom: 30, redTo: 60,
+		min: -30,
+		max: 60,
+/*	use yellow as blue */
+		yellowColor: '#66B2FF',
+         yellowFrom:-30, yellowTo: 0,
+          minorTicks: 5
+        };
+
+        var gaugechart = new google.visualization.Gauge(document.getElementById('gauge_div'));
+
+        gaugechart.draw(gaugedata, options);
+
+        dashboard.bind(RangeSlider, lineChart);
+        dashboard.draw(data);
+        
+      }
+    	</script>
+  
+  </head>
+  <body>
+	<div >
+		<h1>Außentemperatur</h1>
+	</div>
+	<div>
 	</div>
     <div id="dashboard_div">
      <!--Divs that will hold each control and chart-->
+      <div id="gauge_div" style="width: 450px; height: 150px"></div>
       <div id="chart_div" style="width: 1200px; height: 500px"></div>
       <div id="filter_div" style="width: 1200px; height: 250px"></div>
     </div>
