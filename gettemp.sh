@@ -1,6 +1,6 @@
 #!/bin/bash
 DB="/root/test.db"
-RRD="/root/temphum.db"
+RRD="/root/temphum.rrd"
 TIME=`date "+%s"`
 SUMH=0
 SUMT=0
