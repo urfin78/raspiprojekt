@@ -148,5 +148,8 @@
       <div id="chart_div" style="width: 1200px; height: 500px"></div>
       <div id="filter_div" style="width: 1200px; height: 250px"></div>
     </div>
+<div>
+<img src="temperature.gif" />
+</div>
   </body>
 </html>
