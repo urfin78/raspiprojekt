@@ -39,8 +39,8 @@ rrdtool graph /var/www/temperature.gif --start ${START} \
 	--upper-limit ${ULIMIT} \
 	--vertical-label "Temperature" \
 	DEF:temp=${RRD}:TEMP:AVERAGE \
-	DEF:max=${RRD}:TEMP:MAX \
-	DEF:min=${RRD}:TEMP:MIN \
+	DEF:max=${RRD}:TEMP:MAX:step=86400 \
+	DEF:min=${RRD}:TEMP:MIN:step=86400 \
 	COMMENT:"Temperatur in °C \l" \
 	LINE1:temp#00EE00:"Durchschnitt\:" \
 	GPRINT:temp:AVERAGE:"%6.2lf %s" \
