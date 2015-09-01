@@ -6,20 +6,29 @@ SUMH=0
 SUMT=0
 #read data from sensor until real values are read
 for ((i=1; i<=10; i++)); do
-	DATA=`~/dht11`
-	while [ "${DATA}" = "Invalid Data!!" ]; do
-		DATA=`~/dht11`
-		TIME=`date "+%s"`
-	done
+	DATA=`~/loldht 7|tail -n1|cut -f 3,7 -d " "`
+#	DATA=`~/dht11`
+#	while [ "${DATA}" = "Invalid Data!!" ]; do
+#		DATA=`~/dht11`
+#		TIME=`date "+%s"`
+#	done
 #capture values in array 0=hum,1=temp in celsius
-	VALUES=($(echo "${DATA}"|grep -oe "[[:digit:]]*\.[[:digit:]]"))
-	HUM=($(echo "${VALUES[0]}"|grep -oP '.*?(?=\.)'))
-	TEMP=($(echo "${VALUES[1]}"|grep -oP '.*?(?=\.)'))
-	SUMH=$(( $SUMH + $HUM ))
-	SUMT=$(( $SUMT + $TEMP ))
+	VALUES=($(echo "${DATA}"|grep -oe "[[:digit:]]*\.[[:digit:]][[:digit:]]"))
+	HUM=($(echo "${VALUES[0]}"))
+	TEMP=($(echo "${VALUES[1]}"))
+	SUMH=`echo "scale=2;$SUMH+$HUM"|bc`
+	SUMT=`echo "scale=2;$SUMT+$TEMP"|bc`
+#dht 11
+#	VALUES=($(echo "${DATA}"|grep -oe "[[:digit:]]*\.[[:digit:]]"))
+#	HUM=($(echo "${VALUES[0]}"|grep -oP '.*?(?=\.)'))
+#	TEMP=($(echo "${VALUES[1]}"|grep -oP '.*?(?=\.)'))
+#	SUMH=$(( $SUMH + $HUM ))
+#	SUMT=$(( $SUMT + $TEMP ))
 done
-HUMID=`echo "scale=1;$SUMH/10"|bc`
-TEMPERA=`echo "scale=1;$SUMT/10"|bc`
+HUMID=`echo "scale=2;$SUMH/10"|bc`
+TEMPERA=`echo "scale=2;$SUMT/10"|bc`
+#HUMID=`echo "scale=1;$SUMH/10"|bc`
+#TEMPERA=`echo "scale=1;$SUMT/10"|bc`
 #fill both databases
 rrdtool update ${RRD} ${TIME}:${TEMPERA}:${HUMID}
 sqlite3 ${DB} "insert into data (time,hum,temp) VALUES (${TIME},${HUMID},${TEMPERA});"
