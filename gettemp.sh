@@ -72,8 +72,8 @@ rrdtool graph /var/www/temperature_month.gif --start ${START} \
 	--upper-limit ${ULIMIT} \
 	--vertical-label "Temperature" \
 	DEF:temp=${RRD}:TEMP:AVERAGE \
-	DEF:max=${RRD}:TEMP:MAX:step=21600 \
-	DEF:min=${RRD}:TEMP:MIN:step=21600 \
+	DEF:max=${RRD}:TEMP:MAX:step=86400 \
+	DEF:min=${RRD}:TEMP:MIN:step=86400 \
 	COMMENT:"Temperatur in °C \l" \
 	LINE1:temp#00EE00:"Durchschnitt\:" \
 	GPRINT:temp:AVERAGE:"%6.2lf %s" \
@@ -95,8 +95,8 @@ rrdtool graph /var/www/temperature_year.gif --start ${START} \
 	--upper-limit ${ULIMIT} \
 	--vertical-label "Temperature" \
 	DEF:temp=${RRD}:TEMP:AVERAGE \
-	DEF:max=${RRD}:TEMP:MAX:step=21600 \
-	DEF:min=${RRD}:TEMP:MIN:step=21600 \
+	DEF:max=${RRD}:TEMP:MAX:step=604800 \
+	DEF:min=${RRD}:TEMP:MIN:step=604800 \
 	COMMENT:"Temperatur in °C \l" \
 	LINE1:temp#00EE00:"Durchschnitt\:" \
 	GPRINT:temp:AVERAGE:"%6.2lf %s" \
