@@ -17,7 +17,7 @@
 		gestern.setTime(gestern.getTime() - 86400000 * 2);
 		var data = google.visualization.arrayToDataTable([
        
-          ['Zeit', 'Luftfeuchte', 'Temperatur']
+          ['Zeit', 'Temperatur']
           <?php
 			#create your database before
 			#sqlite3 test.db "CREATE TABLE IF NOT EXISTS data (id INTEGER PRIMARY KEY,time INT,temp REAL,hum REAL);"
@@ -35,7 +35,7 @@
 			$hour=date("H",$timestamp);
 			$minute=date("i",$timestamp);
 			echo ",";
-			echo "[new Date($year, $month, $day, $hour, $minute, 00), $hum, $temp]";
+			echo "[new Date($year, $month, $day, $hour, $minute, 00), $temp]";
 		}
           ?>
         ],false);
@@ -149,7 +149,9 @@
       <div id="filter_div" style="width: 1200px; height: 250px"></div>
     </div>
 <div>
-<img src="temperature.gif" />
+<img src="temperature_week.gif" />
+<img src="temperature_month.gif" />
+<img src="temperature_year.gif" />
 </div>
   </body>
 </html>
