@@ -37,8 +37,8 @@ cp $DB /var/www/
 #create rrd graph
 #START=1438424408
 START=$(( ${TIME} - 604800 ))
-MAX=`rrdtool graph ${RRD} --start=${START} DEF:max="${RRD}":TEMP:MAX VDEF:maxi=max,MAXIMUM PRINT:maxi:"%4.2lf %s"|tail -n 1`
-MIN=`rrdtool graph ${RRD} --start=${START} DEF:min="${RRD}":TEMP:MAX VDEF:mini=min,MINIMUM PRINT:mini:"%4.2lf %s"|tail -n 1`
+MAX=`rrdtool graph ${RRD} --start=${START} DEF:max="${RRD}":TEMP:MAX VDEF:maxi=max,MAXIMUM PRINT:maxi:"%4.2lf"|tail -n 1`
+MIN=`rrdtool graph ${RRD} --start=${START} DEF:min="${RRD}":TEMP:MIN VDEF:mini=min,MINIMUM PRINT:mini:"%4.2lf"|tail -n 1`
 ULIMIT=`echo "scale=2;$MAX+5"|bc`
 LLIMIT=`echo "scale=2;$MIN-5"|bc`
 rrdtool graph /var/www/temperature_week.gif --start ${START} \
@@ -53,15 +53,15 @@ rrdtool graph /var/www/temperature_week.gif --start ${START} \
 	DEF:min=${RRD}:TEMP:MIN:step=21600 \
 	COMMENT:"Temperatur in °C \l" \
 	LINE1:temp#00EE00:"Durchschnitt\:" \
-	GPRINT:temp:AVERAGE:"%6.2lf %s" \
+	GPRINT:temp:AVERAGE:"%6.2lf" \
 	LINE2:max#ff0000:"Max\:" \
-	GPRINT:max:MAX:"%6.2lf %s" \
+	GPRINT:max:MAX:"%6.2lf" \
 	LINE3:min#0000ff:"Min\:" \
-	GPRINT:min:MIN:"%6.2lf %s" \
+	GPRINT:min:MIN:"%6.2lf" \
 
 START=$(( ${TIME} - 2592000 ))
-MAX=`rrdtool graph ${RRD} --start=${START} DEF:max="${RRD}":TEMP:MAX VDEF:maxi=max,MAXIMUM PRINT:maxi:"%4.2lf %s"|tail -n 1`
-MIN=`rrdtool graph ${RRD} --start=${START} DEF:min="${RRD}":TEMP:MAX VDEF:mini=min,MINIMUM PRINT:mini:"%4.2lf %s"|tail -n 1`
+MAX=`rrdtool graph ${RRD} --start=${START} DEF:max="${RRD}":TEMP:MAX VDEF:maxi=max,MAXIMUM PRINT:maxi:"%4.2lf"|tail -n 1`
+MIN=`rrdtool graph ${RRD} --start=${START} DEF:min="${RRD}":TEMP:MIN VDEF:mini=min,MINIMUM PRINT:mini:"%4.2lf"|tail -n 1`
 ULIMIT=`echo "scale=2;$MAX+5"|bc`
 LLIMIT=`echo "scale=2;$MIN-5"|bc`
 rrdtool graph /var/www/temperature_month.gif --start ${START} \
@@ -76,15 +76,15 @@ rrdtool graph /var/www/temperature_month.gif --start ${START} \
 	DEF:min=${RRD}:TEMP:MIN:step=86400 \
 	COMMENT:"Temperatur in °C \l" \
 	LINE1:temp#00EE00:"Durchschnitt\:" \
-	GPRINT:temp:AVERAGE:"%6.2lf %s" \
+	GPRINT:temp:AVERAGE:"%6.2lf" \
 	LINE2:max#ff0000:"Max\:" \
-	GPRINT:max:MAX:"%6.2lf %s" \
+	GPRINT:max:MAX:"%6.2lf" \
 	LINE3:min#0000ff:"Min\:" \
-	GPRINT:min:MIN:"%6.2lf %s" \
+	GPRINT:min:MIN:"%6.2lf" \
 
 START=$(( ${TIME} - 31536000 ))
-MAX=`rrdtool graph ${RRD} --start=${START} DEF:max="${RRD}":TEMP:MAX VDEF:maxi=max,MAXIMUM PRINT:maxi:"%4.2lf %s"|tail -n 1`
-MIN=`rrdtool graph ${RRD} --start=${START} DEF:min="${RRD}":TEMP:MAX VDEF:mini=min,MINIMUM PRINT:mini:"%4.2lf %s"|tail -n 1`
+MAX=`rrdtool graph ${RRD} --start=${START} DEF:max="${RRD}":TEMP:MAX VDEF:maxi=max,MAXIMUM PRINT:maxi:"%4.2lf"|tail -n 1`
+MIN=`rrdtool graph ${RRD} --start=${START} DEF:min="${RRD}":TEMP:MIN VDEF:mini=min,MINIMUM PRINT:mini:"%4.2lf"|tail -n 1`
 ULIMIT=`echo "scale=2;$MAX+5"|bc`
 LLIMIT=`echo "scale=2;$MIN-5"|bc`
 rrdtool graph /var/www/temperature_year.gif --start ${START} \
@@ -99,8 +99,8 @@ rrdtool graph /var/www/temperature_year.gif --start ${START} \
 	DEF:min=${RRD}:TEMP:MIN:step=604800 \
 	COMMENT:"Temperatur in °C \l" \
 	LINE1:temp#00EE00:"Durchschnitt\:" \
-	GPRINT:temp:AVERAGE:"%6.2lf %s" \
+	GPRINT:temp:AVERAGE:"%6.2lf" \
 	LINE2:max#ff0000:"Max\:" \
-	GPRINT:max:MAX:"%6.2lf %s" \
+	GPRINT:max:MAX:"%6.2lf" \
 	LINE3:min#0000ff:"Min\:" \
-	GPRINT:min:MIN:"%6.2lf %s" \
+	GPRINT:min:MIN:"%6.2lf" \
