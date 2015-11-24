@@ -13,7 +13,7 @@ for ((i=1; i<=10; i++)); do
 #		TIME=`date "+%s"`
 #	done
 #capture values in array 0=hum,1=temp in celsius
-	VALUES=($(echo "${DATA}"|grep -oe ".[[:digit:]]*\.[[:digit:]][[:digit:]]"))
+	VALUES=($(echo "${DATA}"|grep -oe "-*[[:digit:]]*\.[[:digit:]][[:digit:]]"))
 	HUM=($(echo "${VALUES[0]}"))
 	TEMP=($(echo "${VALUES[1]}"))
 	SUMH=`echo "scale=2;$SUMH+$HUM"|bc`
