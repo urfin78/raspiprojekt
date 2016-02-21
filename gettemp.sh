@@ -2,6 +2,7 @@
 DB="/root/test.db"
 RRD="/root/temphum.rrd"
 TIME=`date "+%s"`
+TEMPERA=300
 #check for wrong values
 #read data from sensor until real values are read
 while [ $(echo "${TEMPERA}/1"|bc) -gt 50 ] || [ $(echo "${TEMPERA}/1"|bc) -lt -50 ]; do
