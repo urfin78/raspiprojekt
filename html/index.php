@@ -24,7 +24,7 @@
 		$sqlite="/var/www/test.db";
 		$query="select time,hum,temp from data";
 		$db = new PDO('sqlite:/var/www/test.db');
-		$result = $db->query("select time,temp,hum from data"); 
+		$result = $db->query("select time,temp,hum from data where time > strftime('%s','now','-14 day');"); 
 		while($row=$result->fetch(PDO::FETCH_ASSOC)) {
 			$hum=$row['hum'];
 			$temp=$row['temp'];
