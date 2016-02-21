@@ -6,9 +6,9 @@ TEMPERA=300
 #check for wrong values
 #read data from sensor until real values are read
 while [ $(echo "${TEMPERA}/1"|bc) -gt 50 ] || [ $(echo "${TEMPERA}/1"|bc) -lt -50 ]; do
-for ((i=1; i<=10; i++)); do
 SUMH=0
 SUMT=0
+for ((i=1; i<=10; i++)); do
 	DATA=`~/loldht 7|tail -n1|cut -f 3,7 -d " "`
 #	DATA=`~/dht11`
 #	while [ "${DATA}" = "Invalid Data!!" ]; do
